@@ -80,9 +80,7 @@
       transition: border-color 0.2s;
     }
 
-    .pw-input:focus {
-      border-color: var(--brand);
-    }
+    .pw-input:focus { border-color: var(--brand); }
 
     .pw-btn {
       width: 100%;
@@ -115,9 +113,7 @@
       padding: 40px 20px;
     }
 
-    .logo-icon {
-      margin-bottom: 24px;
-    }
+    .logo-icon { margin-bottom: 24px; }
 
     .page-title {
       font-size: 22px;
@@ -228,27 +224,14 @@
   <p class="page-subtitle">Choose a version to review</p>
 
   <div class="options">
-    <a class="option-card" href="v_inline_01.3.2.html">
-      <span class="option-label">UI Refresh</span>
-      <span class="option-name">v_inline_01.3.2</span>
+    <a class="option-card" href="v_02.html">
+      <span class="option-label">Latest</span>
+      <span class="option-name">V02</span>
       <span class="option-desc">
-        <span>Contradiction</span>
-        <span>Diagram</span>
-        <span>Inline resources</span>
-        <span>Chatbox tool activation</span>
-      </span>
-      <svg class="option-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-    <a class="option-card" href="v_inline_01.4.html">
-      <span class="option-label">New UI design</span>
-      <span class="option-name">v_inline_01.4</span>
-      <span class="option-desc">
-        <span>Contradiction</span>
-        <span>Diagram</span>
-        <span>Inline resources</span>
-        <span>Chatbox tool activation</span>
+        <span>Contradiction Finder</span>
+        <span>Inline Resources</span>
+        <span>Diagram tool</span>
+        <span>Agent Task Flow</span>
       </span>
       <svg class="option-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -259,25 +242,28 @@
 
 <script>
 (function(){
-  var TARGET = 'v_01.html';
+  function showContent() {
+    document.getElementById('password-gate').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }
 
-  // Skip gate on local files
-  if(location.protocol === 'file:') {
-    window.location.href = TARGET;
+  // Skip gate on local file:// — show cards directly
+  if (location.protocol === 'file:') {
+    showContent();
     return;
   }
 
-  // Check session
-  if(sessionStorage.getItem('codesign-auth') === '1') {
-    window.location.href = TARGET;
+  // Already authenticated in this session
+  if (sessionStorage.getItem('codesign-auth') === '1') {
+    showContent();
     return;
   }
 
   function tryLogin() {
     var val = document.getElementById('pw-input').value;
-    if(val === '4444') {
+    if (val === '4444') {
       sessionStorage.setItem('codesign-auth', '1');
-      window.location.href = TARGET;
+      showContent();
     } else {
       document.getElementById('pw-error').style.display = 'block';
       document.getElementById('pw-input').value = '';
@@ -287,7 +273,7 @@
 
   document.getElementById('pw-btn').addEventListener('click', tryLogin);
   document.getElementById('pw-input').addEventListener('keydown', function(e) {
-    if(e.key === 'Enter') tryLogin();
+    if (e.key === 'Enter') tryLogin();
   });
 })();
 </script>
