@@ -242,20 +242,19 @@
 
 <script>
 (function(){
-  function showContent() {
-    document.getElementById('password-gate').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
+  function enter() {
+    window.location.href = 'v_02.html';
   }
 
-  // Skip gate on local file:// — show cards directly
+  // Skip gate on local file:// — go directly
   if (location.protocol === 'file:') {
-    showContent();
+    enter();
     return;
   }
 
   // Already authenticated in this session
   if (sessionStorage.getItem('codesign-auth') === '1') {
-    showContent();
+    enter();
     return;
   }
 
@@ -263,7 +262,7 @@
     var val = document.getElementById('pw-input').value;
     if (val === '4444') {
       sessionStorage.setItem('codesign-auth', '1');
-      showContent();
+      enter();
     } else {
       document.getElementById('pw-error').style.display = 'block';
       document.getElementById('pw-input').value = '';
