@@ -4334,8 +4334,7 @@
       position: absolute;
       top: calc(100% + 6px);
       left: 0;
-      min-width: 280px;
-      max-width: 360px;
+      width: 100%;
       background: var(--white);
       border: 1px solid #EAECF0;
       border-radius: var(--radius);
@@ -13782,12 +13781,7 @@ GUIDELINES
       </div>
     `;
 
-    const hasMultipleWorkspaces = wsGroups.length > 1;
-    const menuContent = wsGroups.map((g, idx) => `
-      ${idx > 0 ? '<div class="instructions-version-group-divider"></div>' : ''}
-      <div class="instructions-version-group-label">${escapeHtml(g.ws.name)}${hasMultipleWorkspaces && g.ws.id === CURRENT_WORKSPACE_ID ? ' · This workspace' : ''}</div>
-      ${g.versions.map(renderOption).join('')}
-    `).join('');
+    const menuContent = wsGroups.map(g => g.versions.map(renderOption).join('')).join('');
 
     const createNewBtnHTML = `<button class="customize-action-btn" onclick="createNewVersion()">
       <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
